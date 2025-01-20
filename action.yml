@@ -21,7 +21,7 @@ runs:
   using: "composite"
   steps:
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
-    shell: ${{ inputs.shell }}
+      shell: ${{ inputs.shell }}
       run: |
         git bisect start ${{ inputs.bad-commits }} ${{ inputs.good-commit }} --
         git bisect run ${{ inputs.bisect-comand }}
