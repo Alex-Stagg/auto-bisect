@@ -19,9 +19,9 @@ inputs:
     required: true
 runs:
   using: "composite"
-  shell: ${{ inputs.shell }}
   steps:
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
+      shell: ${{ inputs.shell }}
       run: |
         git bisect start ${{ inputs.bad-commits }} ${{ inputs.good-commit }} --
         git bisect run ${{ inputs.bisect_command }}
