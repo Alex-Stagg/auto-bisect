@@ -1,0 +1,27 @@
+name: 'Auto-bisect Action'
+description: 'An action to automatically perform a git-bisect between two commits'
+inputs:
+  bad-commit:
+    description: The branch or commit contains the issue
+    type: string
+    required: true
+  good-commit:
+    description: The origin branch or commit, that does not contain the issue
+    type: string
+    required: true
+  bisect_command:
+    description: The command to run to test the source code
+    type: string
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
+      run: |
+        git bisect start ${{ inputs.bad-commits }} ${{ inputs.good-commit }} --
+        git bisect run ${{ inputs.bisect_command }}
+        git bisect reset
+branding:
+  icon: 'git-commit'
+  color: 'green'
+
