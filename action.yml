@@ -17,22 +17,25 @@ inputs:
     description: The shell to use
     type: string
     required: true
+outputs:
+  first-bad-commit:
+    description: "First bad commit found via git-bisect"
+    value: ${{ steps.bisect.outputs.first-bad-commit }}
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
       shell: ${{ inputs.shell }}
       run: |
-        git fetch origin
         good_commit=$(git rev-parse origin/${{ inputs.good-commit }})
         bad_commit=$(git rev-parse origin/${{ inputs.bad-commit }})
         git bisect start $bad_commit $good_commit --
         git bisect run ${{ inputs.bisect-comand }}
+        echo "first-bad-commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         git bisect reset
+    - name: Show bad commit
+      shell: ${{ inputs.shell }}
+      run: echo "The first bad commit is ${{ steps.bisect.outputs.first-bad-commit }}"
 branding:
   icon: "git-commit"
   color: "green"
