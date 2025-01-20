@@ -28,6 +28,8 @@ runs:
       shell: ${{ inputs.shell }}
       run: |
         git fetch
+        git branch -a
+        git show-ref
         good_commit=$(git rev-parse ${{ inputs.good-commit }})
         bad_commit=$(git rev-parse ${{ inputs.bad-commit }})
         git bisect start $bad_commit $good_commit --
