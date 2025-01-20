@@ -23,6 +23,7 @@ runs:
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
       shell: ${{ inputs.shell }}
       run: |
+        cd ${{ github.action_path }}
         git bisect start ${{ inputs.bad-commit }} ${{ inputs.good-commit }} --
         git bisect run ${{ inputs.bisect-comand }}
         git bisect reset
