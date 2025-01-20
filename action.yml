@@ -25,6 +25,7 @@ runs:
   using: "composite"
   steps:
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
+      id: bisect
       shell: ${{ inputs.shell }}
       run: |
         good_commit=$(git rev-parse origin/${{ inputs.good-commit }})
