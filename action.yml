@@ -27,9 +27,7 @@ runs:
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
       shell: ${{ inputs.shell }}
       run: |
-        pwd
-        echo ${{ github.workspace }}
-        cd ${{ github.workspace }}
+        git fetch
         good_commit=$(git rev-parse ${{ inputs.good-commit }})
         bad_commit=$(git rev-parse ${{ inputs.bad-commit }})
         git bisect start $bad_commit $good_commit --
