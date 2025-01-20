@@ -20,6 +20,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
       shell: ${{ inputs.shell }}
       run: |
