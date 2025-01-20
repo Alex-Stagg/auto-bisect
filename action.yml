@@ -23,8 +23,8 @@ runs:
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
       shell: ${{ inputs.shell }}
       run: |
-        good_commit=$(git rev-parse ${{ github.good-commit }})
-        bad_commit=$(git rev-parse ${{ github.bad-commit }})
+        good_commit=$(git rev-parse ${{ inputs.good-commit }})
+        bad_commit=$(git rev-parse ${{ inputs.bad-commit }})
         git bisect start $bad_commit $good_commit --
         git bisect run ${{ inputs.bisect-comand }}
         git bisect reset
