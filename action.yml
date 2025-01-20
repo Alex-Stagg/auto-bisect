@@ -9,7 +9,7 @@ inputs:
     description: The origin branch or commit, that does not contain the issue
     type: string
     required: true
-  bisect_command:
+  bisect-comand:
     description: The command to run to test the source code
     type: string
     required: true
@@ -21,10 +21,10 @@ runs:
   using: "composite"
   steps:
     - name: Bisect changes from ${{ inputs.good-commit }} to ${{ inputs.bad-commit }}
-      shell: ${{ inputs.shell }}
+    shell: ${{ inputs.shell }}
       run: |
         git bisect start ${{ inputs.bad-commits }} ${{ inputs.good-commit }} --
-        git bisect run ${{ inputs.bisect_command }}
+        git bisect run ${{ inputs.bisect-comand }}
         git bisect reset
 branding:
   icon: "git-commit"
